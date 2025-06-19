@@ -4,10 +4,10 @@ using PaymentAPI.Infrastructure.Data;
 
 namespace PaymentAPI.Application.Services
 {
-    public class ICardService : ICardValidation
+    public class CardService : ICardValidation
     {
         private readonly ApplicationDbContext _db;
-        public ICardService(ApplicationDbContext db)
+        public CardService(ApplicationDbContext db)
         {
             _db = db;
 
