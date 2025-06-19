@@ -1,0 +1,21 @@
+﻿using Microsoft.EntityFrameworkCore;
+using PaymentAPI.Application.Interfaces;
+using PaymentAPI.Infrastructure.Data;
+
+namespace PaymentAPI.Application.Services
+{
+    public class ICardService : ICardValidation
+    {
+        private readonly ApplicationDbContext _db;
+        public ICardService(ApplicationDbContext db)
+        {
+            _db = db;
+
+        }
+        public async Task<bool> ValidateCard(string CardNumber, int ExpiryMonth, int ExpiryYear)
+        {
+            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == CardNumber && c.CardExpiryMonth == ExpiryMonth && c.CardExpiryYear == ExpiryYear);
+            return IsValidCard != null;
+        }
+    }
+}
