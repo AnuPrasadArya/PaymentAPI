@@ -19,6 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ICardValidation, CardService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
+builder.Services.AddScoped<IReportService, ReportService>();
+
 
 builder.Services.AddQuartz(q =>
 {
@@ -32,8 +34,8 @@ builder.Services.AddQuartz(q =>
         .ForJob(jobKey)
         .WithIdentity("AutoConfirmPaymentTrigger")
         .WithSchedule(CronScheduleBuilder
-            .DailyAtHourAndMinute(0, 0) // 12:00 AM UTC
-            .InTimeZone(TimeZoneInfo.Utc) // Use UTC to avoid local-time confusion
+            .DailyAtHourAndMinute(0, 0) // 12
+            .InTimeZone(TimeZoneInfo.Utc) // 
         )
     );
 });
