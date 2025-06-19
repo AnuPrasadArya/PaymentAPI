@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PaymentAPI/.vs/PaymentAPI/FileContentIndex/459d4715-758a-4713-9a6a-b5d93b2e1832.vsidx
+/PaymentAPI/.vs/PaymentAPI/v17/.suo
+*.vsidx
+*.v2
