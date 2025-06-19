@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Application.Services;
 using PaymentAPI.Infrastructure.Data;
+using PaymentAPI.Jobs;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,25 @@ builder.Services.AddScoped<ICardValidation, CardService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
 
+builder.Services.AddQuartz(q =>
+{
+   // q.UseMicrosoftDependencyInjectionScopedJobFactory();
 
+    var jobKey = new JobKey("AutoConfirmPaymentJob");
+
+    q.AddJob<AutoConfirmPaymentJob>(opts => opts.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("AutoConfirmPaymentTrigger")
+        .WithSchedule(CronScheduleBuilder
+            .DailyAtHourAndMinute(0, 0) // 12:00 AM UTC
+            .InTimeZone(TimeZoneInfo.Utc) // Use UTC to avoid local-time confusion
+        )
+    );
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
