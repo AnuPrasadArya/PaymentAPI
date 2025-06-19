@@ -12,7 +12,7 @@ namespace PaymentAPI.API.Controllers
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;       
-        public PaymentController(IPaymentService paymentService, ApplicationDbContext context)
+        public PaymentController(IPaymentService paymentService)
         {
             _paymentService = paymentService;           
         }
