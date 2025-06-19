@@ -1,15 +1,17 @@
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Application.Services;
 using PaymentAPI.Infrastructure.Data;
 using PaymentAPI.Jobs;
 using Quartz;
-
+using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -32,12 +34,11 @@ builder.Services.AddQuartz(q =>
 
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
-        .WithIdentity("AutoConfirmPaymentTrigger")
-        .WithSchedule(CronScheduleBuilder
-            .DailyAtHourAndMinute(0, 0) // 12
-            .InTimeZone(TimeZoneInfo.Utc) // 
-        )
+        .WithIdentity("AutoConfirmPaymentJobTrigger")
+         //.WithCronSchedule("0 5 0 * * ?") // 12:05 AM
+        .WithCronSchedule("0 0/1 * * * ?")
     );
+   
 });
 
 builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);

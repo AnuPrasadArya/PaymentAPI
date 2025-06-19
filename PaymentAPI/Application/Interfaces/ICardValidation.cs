@@ -2,6 +2,6 @@
 {
     public interface ICardValidation
     {
-        Task<bool> ValidateCard(string CardNumber, int ExpiryMonth, int ExpiryYear);
+        Task<bool> ValidateCard(string CardNumber,int CVV, int ExpiryMonth, int ExpiryYear);
     }
 }

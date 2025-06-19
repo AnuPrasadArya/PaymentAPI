@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PaymentAPI.Domain.Entities
 {
@@ -19,6 +20,7 @@ namespace PaymentAPI.Domain.Entities
         public string CreatedBy { get; set; } = "Anu";
         public DateTime? UpdatedOn { get; set; }
         public string? UpdatedBy { get; set; }
+        [JsonIgnore]
         public ICollection<Transactions> PaymentTransactions { get; set; } = new List<Transactions>();
     }
 }

@@ -19,7 +19,7 @@ namespace PaymentAPI.API.Controllers
         [HttpPost("ProcessRefund")]
         public async Task<IActionResult> ProcessRefund([FromBody] RefundRequest request)
         {
-            var result = await _refundService.ProcessRefund(request.TransactionId!, request.RefundCode!);
+            var result = await _refundService.ProcessRefund(request.ReferenceId!, request.RefundCode!);
             return Ok(new { result.ReferenceId, result.RefundCode, result.Message });
         }
     }

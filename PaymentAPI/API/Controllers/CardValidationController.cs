@@ -21,7 +21,7 @@ namespace PaymentAPI.API.Controllers
         [HttpPost("ValidateCard")]
         public async Task<IActionResult> ValidateCard([FromBody] CardValidationRequest request)
         {
-            var isValidCard = await _cardValidationService.ValidateCard(request.CardNumber!, request.ExpiryMonth, request.ExpiryYear);
+            var isValidCard = await _cardValidationService.ValidateCard(request.CardNumber!,request.CVV, request.ExpiryMonth, request.ExpiryYear);
             return Ok(new { valid = isValidCard });
         }
     }

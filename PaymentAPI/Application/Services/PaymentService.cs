@@ -31,6 +31,7 @@ namespace PaymentAPI.Application.Services
             string RefundCode =Helper. GenerateRefundcode();
             var transactions = new Transactions
             {
+                CardId= IsValidCard.Id,
                 ReferenceId = ReferenceId,
                 CardNumber = CardNumber,
                 TransactionAmount = Amount,

@@ -12,9 +12,9 @@ namespace PaymentAPI.Application.Services
             _db = db;
 
         }
-        public async Task<bool> ValidateCard(string CardNumber, int ExpiryMonth, int ExpiryYear)
+        public async Task<bool> ValidateCard(string CardNumber,int CVV, int ExpiryMonth, int ExpiryYear)
         {
-            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == CardNumber && c.CardExpiryMonth == ExpiryMonth && c.CardExpiryYear == ExpiryYear);
+            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == CardNumber && c.CardCVV == CVV && c.CardExpiryMonth == ExpiryMonth && c.CardExpiryYear == ExpiryYear);
             return IsValidCard != null;
         }
     }

@@ -2,7 +2,7 @@
 {
     public class RefundRequest
     {
-        public string? TransactionId { get; set; }
+        public string? ReferenceId { get; set; }
         public string? RefundCode { get; set; }
     }
 }

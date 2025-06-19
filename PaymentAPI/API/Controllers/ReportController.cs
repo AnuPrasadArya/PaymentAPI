@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PaymentAPI.Application.DTOs;
 using PaymentAPI.Application.Interfaces;
 
@@ -19,7 +20,7 @@ namespace PaymentAPI.API.Controllers
         public async Task<IActionResult> GetPayments([FromBody] ReportPaymentRequest request)
         {
             var result = await _reportService.GetPaymentReport(request);
-            return Ok(JsonConvert.SerializeObject(result));
+            return Ok((result));
         }
 
         [HttpPost("ReportCardbalances")]

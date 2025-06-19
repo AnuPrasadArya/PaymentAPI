@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Application.DTOs;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Domain.Entities;
@@ -17,10 +18,20 @@ namespace PaymentAPI.Application.Services
         }
         public async Task<ReportResponse<Transactions>> GetPaymentReport(ReportPaymentRequest request)
         {
-            var query = _db.Transactions.Include(p => p.Card).AsQueryable();
+            var query = _db.Transactions.AsQueryable();
+            //var query = _db.Transactions
+            //            .Select(t => new
+            //            {
+            //                TransactionId = t.ReferenceId,
+            //                Amount = t.TransactionAmount,                            
+            //                TransactionStatus= t.TransactionStatus!,
+            //                CreatedOn= t.CreatedOn!,
+            //                CardNumber = t.Card.CardNumber!,
+            //                CardHolderName = t.Card.CardHolderName!
+            //            });
 
             if (!string.IsNullOrEmpty(request.CardNumber))
-                query = query.Where(p => p.Card.CardNumber == request.CardNumber);
+                query = query.Where(p => p.CardNumber == request.CardNumber);
 
             if (!string.IsNullOrEmpty(request.ReferenceId))
                 query = query.Where(p => p.ReferenceId == request.ReferenceId);

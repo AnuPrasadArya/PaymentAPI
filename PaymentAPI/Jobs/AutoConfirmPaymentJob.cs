@@ -22,7 +22,7 @@ namespace PaymentAPI.Jobs
             var now = DateTime.Now;
 
             var paymentsToConfirm = await dbContext.Transactions
-                .Where(p => p.TransactionStatus == Convert.ToString(PaymentStatus.Held) && p.RefundCodeExpiry <= now)
+                .Where(p => p.TransactionStatus == Convert.ToString(PaymentStatus.Held) && p.RefundCodeExpiry >= now)
                 .ToListAsync();
 
             foreach (var payment in paymentsToConfirm)
