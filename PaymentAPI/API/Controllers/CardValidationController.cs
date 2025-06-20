@@ -18,7 +18,7 @@ namespace PaymentAPI.API.Controllers
             _cardValidationService = cardValidationService;
            
         }
-        //[Authorize]
+        [Authorize]
         [HttpPost("ValidateCard")]
         public async Task<IActionResult> ValidateCard([FromBody] CardValidationRequest request)
         {
