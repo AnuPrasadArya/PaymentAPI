@@ -29,11 +29,12 @@ namespace PaymentAPI.Application.Services
                 return (ReferenceId, "", "Card Is Not valid or Insufficient Fund");
             }
             string RefundCode =Helper. GenerateRefundcode();
+            string EncryptedCardNumber = Helper.Encrypt(CardNumber);
             var transactions = new Transactions
             {
                 CardId= IsValidCard.Id,
                 ReferenceId = ReferenceId,
-                CardNumber = CardNumber,
+                CardNumber = EncryptedCardNumber,
                 TransactionAmount = Amount,
                 TransactionStatus = Convert.ToString(PaymentStatus.Held),
                 RefundCode = RefundCode,

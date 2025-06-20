@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Application.Interfaces;
+using PaymentAPI.Helpers;
 using PaymentAPI.Infrastructure.Data;
 
 namespace PaymentAPI.Application.Services
@@ -14,7 +15,8 @@ namespace PaymentAPI.Application.Services
         }
         public async Task<bool> ValidateCard(string CardNumber,int CVV, int ExpiryMonth, int ExpiryYear)
         {
-            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == CardNumber && c.CardCVV == CVV && c.CardExpiryMonth == ExpiryMonth && c.CardExpiryYear == ExpiryYear);
+            string EncryptedCardNumber = Helper.Encrypt(CardNumber);
+            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == EncryptedCardNumber && c.CardCVV == CVV && c.CardExpiryMonth == ExpiryMonth && c.CardExpiryYear == ExpiryYear);
             return IsValidCard != null;
         }
     }
