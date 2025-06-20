@@ -1,14 +1,47 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Application.Services;
 using PaymentAPI.Infrastructure.Data;
 using PaymentAPI.Jobs;
 using Quartz;
+using System.Text;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+
+
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
+
+// Configure JWT Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false; // Set to true in production
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = jwtSettings["Issuer"],
+        ValidAudience = jwtSettings["Issuer"], // or use "Audience" if defined separately
+        IssuerSigningKey = new SymmetricSecurityKey(key)
+    };
+});
+
+//builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
 
@@ -35,8 +68,8 @@ builder.Services.AddQuartz(q =>
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
         .WithIdentity("AutoConfirmPaymentJobTrigger")
-         //.WithCronSchedule("0 5 0 * * ?") // 12:05 AM
-        .WithCronSchedule("0 0/1 * * * ?")
+         .WithCronSchedule("0 5 0 * * ?") // 12:05 AM
+        //.WithCronSchedule("0 0/1 * * * ?") // 1minute
     );
    
 });
@@ -53,6 +86,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

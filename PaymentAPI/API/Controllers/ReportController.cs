@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PaymentAPI.Application.DTOs;
@@ -16,13 +17,14 @@ namespace PaymentAPI.API.Controllers
         {
             _reportService = reportService;
         }
+        [Authorize]
         [HttpPost("ReportPayments")]
         public async Task<IActionResult> GetPayments([FromBody] ReportPaymentRequest request)
         {
             var result = await _reportService.GetPaymentReport(request);
             return Ok((result));
         }
-
+        [Authorize]
         [HttpPost("ReportCardbalances")]
         public async Task<IActionResult> GetCardBalances([FromBody] ReportCardBalanceRequest request)
         {

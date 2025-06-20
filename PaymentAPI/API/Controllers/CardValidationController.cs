@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PaymentAPI.Application.DTOs;
@@ -17,13 +18,13 @@ namespace PaymentAPI.API.Controllers
             _cardValidationService = cardValidationService;
            
         }
-
+        [Authorize]
         [HttpPost("ValidateCard")]
         public async Task<IActionResult> ValidateCard([FromBody] CardValidationRequest request)
         {
             var isValidCard = await _cardValidationService.ValidateCard(request.CardNumber!,request.CVV, request.ExpiryMonth, request.ExpiryYear);
             return Ok(new { valid = isValidCard });
-        }
+        }        
     }
 
 }

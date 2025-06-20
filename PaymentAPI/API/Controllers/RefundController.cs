@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentAPI.Application.DTOs;
 using PaymentAPI.Application.Interfaces;
@@ -16,6 +17,7 @@ namespace PaymentAPI.API.Controllers
         {
             _refundService = refundService;
         }
+        [Authorize]
         [HttpPost("ProcessRefund")]
         public async Task<IActionResult> ProcessRefund([FromBody] RefundRequest request)
         {

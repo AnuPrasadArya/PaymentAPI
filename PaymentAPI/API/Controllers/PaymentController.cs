@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PaymentAPI.Application.DTOs;
 using PaymentAPI.Application.Interfaces;
@@ -16,6 +17,7 @@ namespace PaymentAPI.API.Controllers
         {
             _paymentService = paymentService;           
         }
+        [Authorize]
         [HttpPost("ProcessPayment")]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest request)
         {
