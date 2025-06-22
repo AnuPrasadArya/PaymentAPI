@@ -1,0 +1,152 @@
+Payment API – Setup 
+
+Technologies Used
+
+* Backend: ASP.NET Core 8, SQL Server 2022
+* Frontend: React JS v18
+* Architecture: Clean Architecture
+* IDE: Visual Studio 2022
+
+---
+
+ Database Restoration
+
+1. Restore the database using the scripts available in the `dbScripts` Git repository.
+
+---
+
+ Backend API Setup
+
+1. Pull the latest Development branch.
+2. Restore all necessary NuGet packages.
+3. Update the database connection strings in `appsettings.json`.
+
+---
+
+ Running Each API
+
+1. Authorization API
+
+This API generates a JWT token, which is required to access all other APIs.
+
+Sample cURL:
+
+
+curl --location 'https://localhost:7283/api/Auth/GetToken' \
+--header 'Authorization: Bearer 4yR!7pLZbq1xA@9e*W^kT&3pXnD!mVgN$BzC9eG*RfQp7sThLs'
+```
+
+
+ 2. Card Validation API
+
+Validates card details including card number, CVV, expiry month, and year.
+The system encrypts the card number and matches it against encrypted values in the database.
+
+Sample Encrypted Card Numbers:
+
+* `LBI6bI4wLz2LtjrPWJ0kNQ==` → `12345817`
+* `YnymS45Rk7mM3fplQ97KhA==` → `12345678`
+
+Sample cURL (Token required during execution):
+
+
+curl --location 'https://localhost:7283/api/CardValidation/ValidateCard' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data '{
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}'
+```
+
+---
+
+ 3. 💰 Process Payment API
+
+Handles payment processing with all necessary validations.
+
+Sample cURL:
+
+curl --location 'https://localhost:7283/api/Payment/ProcessPayment' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data '{
+  "CardNumber": "12345817",
+  "transactionAmount": 300,
+  "referenceId": "145963"
+}'
+
+ 4. 💸 Process Refund API
+
+Processes refunds and updates related account balances.
+
+Sample cURL:
+
+
+curl --location 'https://localhost:7283/api/Refund/ProcessRefund' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data '{
+  "referenceId": "retete78445544",
+  "refundCode": "4270"
+}'
+
+
+ 5.  Payment Reports API
+
+Returns a list of payments based on filters such as card number, reference ID, status, and date range.
+
+Sample cURL:
+
+
+curl --location 'https://localhost:7283/api/Report/ReportPayments' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data '{
+  "cardNumber": "",
+  "referenceId": "",
+  "status": "",
+  "fromDate": "2025-06-18",
+  "toDate": "2025-06-20",
+  "pageNumber": 1,
+  "pageSize": 10
+}'
+
+ 6.  Card Balance Report API
+
+Returns balance reports for cards based on provided filters.
+
+Sample cURL:
+
+
+curl --location 'https://localhost:7283/api/Report/ReportCardbalances' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data '{
+  "cardHolder": "",
+  "cardNumber": "12345678",
+  "pageNumber": 1,
+  "pageSize": 10
+}'
+
+
+Frontend Setup
+
+1. Pull the latest Development branch.
+2. Install Node modules in the root project directory:
+
+   
+   npm install
+   ```
+3. Update the API base URL in `ApiCall.js` inside the `Services` component.
+4. Start the application:
+
+   
+   npm start
+   ```
+5. CORS Configuration:
+
+   * To bypass CORS issues, add the frontend base URL to the CORS policy in `Program.cs` of the backend project.
+
