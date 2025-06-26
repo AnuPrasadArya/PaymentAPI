@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using PaymentAPI.API.Middleware;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Application.Services;
 using PaymentAPI.Infrastructure.Data;
@@ -44,7 +45,7 @@ builder.Services.AddAuthentication(options =>
 //builder.Services.AddAuthorization();
 
 builder.Services.AddControllers();
-
+builder.Services.AddLogging();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -85,7 +86,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();
 
