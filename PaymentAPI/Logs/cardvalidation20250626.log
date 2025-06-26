@@ -1,0 +1,13 @@
+2025-06-26 14:20:40.294 +05:30 [INF] Request: POST /api/CardValidation/ValidateCard 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-26 14:20:44.472 +05:30 [INF] Request: POST /api/CardValidation/ValidateCard
+2025-06-26 14:20:45.983 +05:30 [WRN] No store type was specified for the decimal property 'CardBalance' on entity type 'Cards'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-26 14:20:45.986 +05:30 [WRN] No store type was specified for the decimal property 'TransactionAmount' on entity type 'Transactions'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-26 14:20:47.437 +05:30 [INF] Fetch Card details successfully for CardNumber: 12345678
+2025-06-26 14:20:47.453 +05:30 [INF] Response: 200 
+Body: {"valid":true}

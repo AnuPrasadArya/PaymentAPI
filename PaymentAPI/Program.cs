@@ -9,6 +9,8 @@ using PaymentAPI.Application.Services;
 using PaymentAPI.Infrastructure.Data;
 using PaymentAPI.Jobs;
 using Quartz;
+using Serilog;
+using Serilog.Filters;
 using System.Text;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +45,27 @@ builder.Services.AddAuthentication(options =>
 });
 
 //builder.Services.AddAuthorization();
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning) // suppress framework info logs
+    .MinimumLevel.Override("System", Serilog.Events.LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    // CardValidation logs
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(Matching.WithProperty<string>("RequestPath", path => path.Contains("/api/CardValidation")))
+        .WriteTo.File("Logs/cardvalidation.log", rollingInterval: RollingInterval.Day))
 
+    // Payment logs
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(Matching.WithProperty<string>("RequestPath", path => path.Contains("/api/Payment")))
+        .WriteTo.File("Logs/payment.log", rollingInterval: RollingInterval.Day))
+
+    // Refund logs
+    .WriteTo.Logger(lc => lc
+        .Filter.ByIncludingOnly(Matching.WithProperty<string>("RequestPath", path => path.Contains("/api/Refund")))
+        .WriteTo.File("Logs/refund.log", rollingInterval: RollingInterval.Day))
+    .CreateLogger();
+builder.Host.UseSerilog(); // Plug into ASP.NET Core
 builder.Services.AddControllers();
 builder.Services.AddLogging();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -86,6 +108,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<RequestResponseLoggingMiddleware>();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,0 +1,12 @@
+2025-06-26 14:28:42.761 +05:30 [INF] Request: POST /api/Payment/ProcessPayment 
+Body: {
+  "CardNumber": "12345817",
+  "transactionAmount": 300,
+  "referenceId": "145963"
+}
+2025-06-26 14:28:42.871 +05:30 [INF] Request: POST /api/Payment/ProcessPayment
+2025-06-26 14:28:46.499 +05:30 [WRN] No store type was specified for the decimal property 'CardBalance' on entity type 'Cards'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-26 14:28:46.511 +05:30 [WRN] No store type was specified for the decimal property 'TransactionAmount' on entity type 'Transactions'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-26 14:28:49.956 +05:30 [WRN] ReferenceId Already Exist: 145963
+2025-06-26 14:28:50.000 +05:30 [INF] Response: 200 
+Body: {"referenceId":"145963","refundCode":"5435","message":"ReferenceId Already Exist"}
