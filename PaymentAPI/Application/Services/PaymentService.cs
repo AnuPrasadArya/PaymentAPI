@@ -27,14 +27,14 @@ namespace PaymentAPI.Application.Services
                 return (IsExistingReferenceId.ReferenceId!, IsExistingReferenceId.RefundCode!, "ReferenceId Already Exist");
 
             }
-            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == CardNumber && c.CardBalance > Amount);
+            string EncryptedCardNumber = Helper.Encrypt(CardNumber);
+            var IsValidCard = await _db.Cards.FirstOrDefaultAsync(c => c.CardNumber == EncryptedCardNumber && c.CardBalance > Amount);
             if (IsValidCard == null || IsValidCard.CardBalance < Amount)
             {
                 _logger.LogWarning("Invalid or insufficient funds for card ");
                 return (ReferenceId, "", "Card Is Not valid or Insufficient Fund");
             }
-            string RefundCode = Helper.GenerateRefundcode();
-            string EncryptedCardNumber = Helper.Encrypt(CardNumber);
+            string RefundCode = Helper.GenerateRefundcode();            
             var transactions = new Transactions
             {
                 CardId = IsValidCard.Id,

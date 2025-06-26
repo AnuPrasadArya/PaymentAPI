@@ -6,7 +6,9 @@ using Newtonsoft.Json;
 using PaymentAPI.API.Middleware;
 using PaymentAPI.Application.Interfaces;
 using PaymentAPI.Application.Services;
+using PaymentAPI.Infrastructure.Consumers;
 using PaymentAPI.Infrastructure.Data;
+using PaymentAPI.Infrastructure.Messaging;
 using PaymentAPI.Jobs;
 using Quartz;
 using Serilog;
@@ -78,8 +80,9 @@ builder.Services.AddScoped<ICardValidation, CardService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IRefundService, RefundService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddSingleton<IMessageBusPublisher, RabbitMqPublisher>();
 
-
+builder.Services.AddHostedService<PaymentSuccessConsumer>();
 builder.Services.AddQuartz(q =>
 {
    // q.UseMicrosoftDependencyInjectionScopedJobFactory();
