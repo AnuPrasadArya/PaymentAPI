@@ -1,0 +1,165 @@
+2025-06-28 00:33:19.998 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:33:20.108 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:34:04.867 +05:30 [ERR] Unhandled exception occurred while processing the request.
+StackExchange.Redis.RedisConnectionException: The message timed out in the backlog attempting to send because no connection became available (5000ms) - Last Connection Exception: SocketClosed (ReadEndOfStream, 0-read, last-recv: 0) on localhost:7283/Interactive, Flushed/MarkProcessed, last: ECHO, origin: ReadFromPipe, outstanding: 12, last-read: 0s ago, last-write: 0s ago, unanswered-write: 0s ago, keep-alive: 60s, state: ConnectedEstablishing, mgr: 10 of 10 available, last-heartbeat: never, global: 0s ago, v: 2.7.27.49176, command=HMGET, timeout: 5000, inst: 12, qu: 0, qs: 0, aw: False, bw: CheckingForTimeout, last-in: 0, cur-in: 0, sync-ops: 0, async-ops: 1, serverEndpoint: localhost:7283, conn-sec: n/a, aoc: 0, mc: 1/1/0, mgr: 10 of 10 available, clientName: ANUARYA(SE.Redis-v2.7.27.49176), IOCP: (Busy=0,Free=1000,Min=1,Max=1000), WORKER: (Busy=2,Free=32765,Min=12,Max=32767), POOL: (Threads=11,QueuedItems=0,CompletedItems=534,Timers=4), v: 2.7.27.49176 (Please take a look at this article for some common client-side issues that can cause timeouts: https://stackexchange.github.io/StackExchange.Redis/Timeouts)
+ ---> StackExchange.Redis.RedisConnectionException: SocketClosed (ReadEndOfStream, 0-read, last-recv: 0) on localhost:7283/Interactive, Flushed/MarkProcessed, last: ECHO, origin: ReadFromPipe, outstanding: 12, last-read: 0s ago, last-write: 0s ago, unanswered-write: 0s ago, keep-alive: 60s, state: ConnectedEstablishing, mgr: 10 of 10 available, last-heartbeat: never, global: 0s ago, v: 2.7.27.49176
+   --- End of inner exception stack trace ---
+   at Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache.GetAndRefreshAsync(String key, Boolean getData, CancellationToken token)
+   at Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache.GetAsync(String key, CancellationToken token)
+   at Microsoft.Extensions.Caching.Distributed.DistributedCacheExtensions.GetStringAsync(IDistributedCache cache, String key, CancellationToken token)
+   at PaymentAPI.API.Controllers.CardValidationController.ValidateCardRedis(CardValidationRequest request) in D:\Dubai\PaymentAPI\API\Controllers\CardValidationController.cs:line 40
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at PaymentAPI.API.Middleware.GlobalExceptionMiddleware.Invoke(HttpContext context) in D:\Dubai\PaymentAPI\API\Middleware\GlobalExceptionMiddleware.cs:line 22
+2025-06-28 00:34:05.065 +05:30 [INF] Response: 500 
+Body: {"error":"An unexpected error occurred.","trace":"The message timed out in the backlog attempting to send because no connection became available (5000ms) - Last Connection Exception: SocketClosed (ReadEndOfStream, 0-read, last-recv: 0) on localhost:7283/Interactive, Flushed/MarkProcessed, last: ECHO, origin: ReadFromPipe, outstanding: 12, last-read: 0s ago, last-write: 0s ago, unanswered-write: 0s ago, keep-alive: 60s, state: ConnectedEstablishing, mgr: 10 of 10 available, last-heartbeat: never, global: 0s ago, v: 2.7.27.49176, command=HMGET, timeout: 5000, inst: 12, qu: 0, qs: 0, aw: False, bw: CheckingForTimeout, last-in: 0, cur-in: 0, sync-ops: 0, async-ops: 1, serverEndpoint: localhost:7283, conn-sec: n/a, aoc: 0, mc: 1/1/0, mgr: 10 of 10 available, clientName: ANUARYA(SE.Redis-v2.7.27.49176), IOCP: (Busy=0,Free=1000,Min=1,Max=1000), WORKER: (Busy=2,Free=32765,Min=12,Max=32767), POOL: (Threads=11,QueuedItems=0,CompletedItems=534,Timers=4), v: 2.7.27.49176 (Please take a look at this article for some common client-side issues that can cause timeouts: https://stackexchange.github.io/StackExchange.Redis/Timeouts)"}
+2025-06-28 00:42:10.499 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:42:10.535 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:42:46.400 +05:30 [WRN] No store type was specified for the decimal property 'CardBalance' on entity type 'Cards'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-28 00:42:47.478 +05:30 [WRN] No store type was specified for the decimal property 'TransactionAmount' on entity type 'Transactions'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-06-28 00:43:20.861 +05:30 [INF] Fetch Card details successfully for CardNumber: 12345678
+2025-06-28 00:43:33.038 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"validated"}
+2025-06-28 00:43:45.659 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:43:45.660 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:00.367 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"cache"}
+2025-06-28 00:44:34.638 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:34.639 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:34.680 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"cache"}
+2025-06-28 00:44:37.507 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:37.507 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:37.520 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"cache"}
+2025-06-28 00:44:47.017 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 593,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:47.018 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:47.093 +05:30 [INF] Fetch Card details successfully for CardNumber: 12345678
+2025-06-28 00:44:47.096 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"validated"}
+2025-06-28 00:44:51.985 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 593,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:51.985 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:52.009 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"cache"}
+2025-06-28 00:44:54.082 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 593,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:54.083 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:54.094 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"cache"}
+2025-06-28 00:44:55.730 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 593,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:55.731 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:55.741 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"cache"}
+2025-06-28 00:44:57.325 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 593,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:44:57.326 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:44:57.337 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"cache"}
+2025-06-28 00:45:05.723 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:45:05.724 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:45:05.733 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"cache"}
+2025-06-28 00:45:07.861 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 592,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:45:07.862 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:45:07.870 +05:30 [INF] Response: 200 
+Body: {"valid":true,"source":"cache"}
+2025-06-28 00:45:17.217 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 595,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:45:17.218 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:45:17.407 +05:30 [INF] Fetch Card details successfully for CardNumber: 12345678
+2025-06-28 00:45:17.412 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"validated"}
+2025-06-28 00:45:21.095 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis 
+Body: {
+  "CardNumber": "12345678",
+  "CVV": 595,
+  "ExpiryMonth": 12,
+  "ExpiryYear": 2029
+}
+2025-06-28 00:45:21.095 +05:30 [INF] Request: POST /api/CardValidation/ValidateCardRedis
+2025-06-28 00:45:21.105 +05:30 [INF] Response: 200 
+Body: {"valid":false,"source":"cache"}

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PaymentAPI.Application.DTOs;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -66,6 +67,13 @@ namespace PaymentAPI.Helpers
             using var sr = new StreamReader(cryptoStream);
 
             return sr.ReadToEnd();
+        }
+        public static string GenerateCacheKey(CardValidationRequest request)
+        {
+            using var sha256 = SHA256.Create();
+            var input = $"{request.CardNumber}|{request.CVV}|{request.ExpiryMonth}|{request.ExpiryYear}";
+            var hash = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+            return $"card_valid:{Convert.ToBase64String(hash)}";
         }
     }
 }

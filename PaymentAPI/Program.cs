@@ -46,6 +46,12 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "localhost:6379"; // Or your Redis connection string
+    options.InstanceName = "CardValidation:";
+});
 //builder.Services.AddAuthorization();
 // Configure Serilog
 Log.Logger = new LoggerConfiguration()
