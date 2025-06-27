@@ -22,7 +22,7 @@ namespace PaymentAPI.Infrastructure.Consumers
         {
             var factory = new ConnectionFactory
             {
-                HostName = "localhost",
+                HostName = "host.docker.internal",
                 Port = 5672, // ✅ correct port
                 UserName = "guest",
                 Password = "guest"
