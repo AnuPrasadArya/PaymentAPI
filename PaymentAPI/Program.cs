@@ -19,14 +19,12 @@ using System.Text;
 using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-
+// Configure JWT Authentication
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
 
-// Configure JWT Authentication
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,13 +46,15 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+//  Redis 
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = "localhost:6379"; // Or your Redis connection string
+    options.Configuration = "localhost:6379"; 
     options.InstanceName = "CardValidation:";
 });
-//builder.Services.AddAuthorization();
+
+//Api Versioning
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -100,6 +100,8 @@ builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddSingleton<IMessageBusPublisher, RabbitMqPublisher>();
 
 builder.Services.AddHostedService<PaymentSuccessConsumer>();
+
+// Quartz Backgorund Job
 builder.Services.AddQuartz(q =>
 {
    // q.UseMicrosoftDependencyInjectionScopedJobFactory();

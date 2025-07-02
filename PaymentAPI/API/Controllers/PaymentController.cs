@@ -25,20 +25,23 @@ namespace PaymentAPI.API.Controllers
         [HttpPost("ProcessPayment")]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentRequest request)
         {
+            // RabbitMq Implementation
+            //var result = await _paymentService.ProcessPayment(request.CardNumber!, request.ReferenceId!, request.TransactionAmount);
+            //if (result.Message=="Success")
+            //{
+            //    var evt = new PaymentSuccessEvent
+            //    {
+            //        CustomerEmail = "anuprasadkwt@gmail.com",
+            //        CustomerName = "AnuPrasad",
+            //        Amount = request.TransactionAmount
+            //    };
+
+            //    _messageBusPublisher.PublishPaymentSuccess(evt);
+
+            //    return Ok(new { message = "Payment processed and event published." });
+            //}
+            //return Ok(new { result.ReferenceId, result.RefundCode, result.Message });
             var result = await _paymentService.ProcessPayment(request.CardNumber!, request.ReferenceId!, request.TransactionAmount);
-            if (result.Message=="Success")
-            {
-                var evt = new PaymentSuccessEvent
-                {
-                    CustomerEmail = "anuprasadkwt@gmail.com",
-                    CustomerName = "AnuPrasad",
-                    Amount = request.TransactionAmount
-                };
-
-                _messageBusPublisher.PublishPaymentSuccess(evt);
-
-                return Ok(new { message = "Payment processed and event published." });
-            }
             return Ok(new { result.ReferenceId, result.RefundCode, result.Message });
         }
     }
