@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dBtiDcsNqjg=",
+  "dgSpecHash": "UayFSEbxVOo=",
   "success": true,
   "projectFilePath": "D:\\Dubai\\TestPaymentAPI\\TestPaymentAPI.csproj",
   "expectedPackageFiles": [
@@ -40,6 +40,7 @@
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\2.3.0\\microsoft.aspnetcore.mvc.razor.extensions.2.3.0.nupkg.sha512",
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.mvc.razorpages\\2.3.0\\microsoft.aspnetcore.mvc.razorpages.2.3.0.nupkg.sha512",
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.mvc.taghelpers\\2.3.0\\microsoft.aspnetcore.mvc.taghelpers.2.3.0.nupkg.sha512",
+    "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.mvc.versioning\\5.1.0\\microsoft.aspnetcore.mvc.versioning.5.1.0.nupkg.sha512",
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.mvc.viewfeatures\\2.3.0\\microsoft.aspnetcore.mvc.viewfeatures.2.3.0.nupkg.sha512",
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.3.0\\microsoft.aspnetcore.razor.2.3.0.nupkg.sha512",
     "C:\\Users\\Anu Prasad\\.nuget\\packages\\microsoft.aspnetcore.razor.design\\2.3.0\\microsoft.aspnetcore.razor.design.2.3.0.nupkg.sha512",

@@ -10,10 +10,11 @@ using PaymentAPI.Infrastructure.Data;
 
 namespace PaymentAPI.API.Controllers
 {
+
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
+    // [ApiVersion("1.0")]
+    // [ApiVersion("2.0")]
     public class CardValidationController : ControllerBase
     {
         private readonly ICardValidation _cardValidationService;
@@ -26,15 +27,15 @@ namespace PaymentAPI.API.Controllers
         }
         [Authorize]
         [HttpPost("ValidateCard")]
-        [MapToApiVersion("1.0")]
+      //  [MapToApiVersion("1.0")]
         public async Task<IActionResult> ValidateCard([FromBody] CardValidationRequest request)
         {
             var isValidCard = await _cardValidationService.ValidateCard(request.CardNumber!, request.CVV, request.ExpiryMonth, request.ExpiryYear);
             return Ok(new { valid = isValidCard });
         }
         [Authorize]
-        [HttpPost("ValidateCard")]
-        [MapToApiVersion("2.0")]
+        [HttpPost("ValidateCardRedis")]
+       // [MapToApiVersion("2.0")]
         public async Task<IActionResult> ValidateCardRedis([FromBody] CardValidationRequest request)
         {
             // Generate a cache key by hashing the card info (never store raw data!)

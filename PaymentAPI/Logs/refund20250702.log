@@ -1,0 +1,26 @@
+2025-07-02 14:50:57.267 +05:30 [INF] Request: POST /api/Refund/ProcessRefund 
+Body: {
+  "referenceId": "retete78445544",
+  "refundCode": "4270"
+}
+2025-07-02 14:50:57.271 +05:30 [INF] Request: POST /api/Refund/ProcessRefund
+2025-07-02 14:50:57.274 +05:30 [INF] Response: 401 
+Body: 
+2025-07-02 14:51:16.176 +05:30 [INF] Request: POST /api/Refund/ProcessRefund 
+Body: {
+  "referenceId": "retete78445544",
+  "refundCode": "4270"
+}
+2025-07-02 14:51:16.176 +05:30 [INF] Request: POST /api/Refund/ProcessRefund
+2025-07-02 14:51:16.248 +05:30 [WRN] Invalid ReferenceId or RefundCode - ReferenceId: retete78445544, RefundCode: 4270
+2025-07-02 14:51:16.249 +05:30 [INF] Response: 200 
+Body: {"referenceId":"retete78445544","refundCode":"4270","message":"Invalid ReferenceId or RefundCode"}
+2025-07-02 14:53:26.984 +05:30 [INF] Request: POST /api/Refund/ProcessRefund 
+Body: {
+  "referenceId": "1459638",
+  "refundCode": "7712"
+}
+2025-07-02 14:53:26.984 +05:30 [INF] Request: POST /api/Refund/ProcessRefund
+2025-07-02 14:53:27.075 +05:30 [INF] Refund processed successfully for ReferenceId: 1459638
+2025-07-02 14:53:27.075 +05:30 [INF] Response: 200 
+Body: {"referenceId":"1459638","refundCode":"7712","message":"Refund processed successfully"}

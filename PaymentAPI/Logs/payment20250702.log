@@ -1,0 +1,32 @@
+2025-07-02 14:50:44.279 +05:30 [INF] Request: POST /api/Payment/ProcessPayment 
+Body: {
+  "CardNumber": "12345817",
+  "transactionAmount": 19,
+  "referenceId": "1459637"
+}
+2025-07-02 14:50:44.319 +05:30 [INF] Request: POST /api/Payment/ProcessPayment
+2025-07-02 14:50:44.362 +05:30 [WRN] ReferenceId Already Exist: 1459637
+2025-07-02 14:50:44.366 +05:30 [INF] Response: 200 
+Body: {"referenceId":"1459637","refundCode":"1251","message":"ReferenceId Already Exist"}
+2025-07-02 14:52:24.634 +05:30 [INF] Request: POST /api/Payment/ProcessPayment 
+Body: {
+  "CardNumber": "12345817",
+  "transactionAmount": 5,
+  "referenceId": "1459638"
+}
+2025-07-02 14:52:24.634 +05:30 [INF] Request: POST /api/Payment/ProcessPayment
+2025-07-02 14:52:24.812 +05:30 [INF] Payment held successfully. RefId: 1459638, RefundCode: 7712
+2025-07-02 14:52:24.879 +05:30 [INF] Response: 200 
+Body: {"message":"Payment processed and event published."}
+2025-07-02 15:00:17.735 +05:30 [INF] Request: POST /api/Payment/ProcessPayment 
+Body: {
+  "CardNumber": "12345817",
+  "transactionAmount": 5,
+  "referenceId": "1459647"
+}
+2025-07-02 15:00:17.791 +05:30 [INF] Request: POST /api/Payment/ProcessPayment
+2025-07-02 15:00:19.795 +05:30 [WRN] No store type was specified for the decimal property 'CardBalance' on entity type 'Cards'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-07-02 15:00:19.798 +05:30 [WRN] No store type was specified for the decimal property 'TransactionAmount' on entity type 'Transactions'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2025-07-02 15:00:21.997 +05:30 [INF] Payment held successfully. RefId: 1459647, RefundCode: 9935
+2025-07-02 15:00:22.027 +05:30 [INF] Response: 200 
+Body: {"referenceId":"1459647","refundCode":"9935","message":"Success"}
